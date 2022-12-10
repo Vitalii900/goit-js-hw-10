@@ -30,8 +30,16 @@ body {
   list-style: none;
 }
 
-.country-info {
+.country_text {
+  font-size: 30px;
+  padding: 0;
+  margin: 0;
 }
+
+.country_title {
+  font-weight: 700;
+}
+
 
 .flagAndName {
   display: flex;
