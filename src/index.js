@@ -12,26 +12,24 @@ const countryInfoRef = document.querySelector('.country-info');
 inputRef.addEventListener('input', debounce(findCountry, DEBOUNCE_DELAY));
 
 function findCountry(event) {
-  fetchCountries(event.target.value.trim(' '))
+  if (event.target.value.trim() === '') {
+    return;
+  }
+  fetchCountries(event.target.value.trim())
     .then(addCountriesMurkup);
 }
 
 function addCountriesMurkup(countries) {
+  countryListRef.innerHTML = '';
+  countryInfoRef.innerHTML = '';
   if (countries.length === 1) {
-    countryListRef.innerHTML = ''
     countriesCard(countries);
   } else if (countries.length > 1 && countries.length <= 10) {
-    countryInfoRef.innerHTML = '';
     countriesList(countries);
   } else if (countries.status === 404) {
     Notify.failure('Oops, there is no country with that name');
-  } else if (!countries.length) {
-    countryListRef.innerHTML = '';
-    countryInfoRef.innerHTML = '';
   } else {
     Notify.info('Too many matches found. Please enter a more specific name.')
-    countryListRef.innerHTML = '';
-    countryInfoRef.innerHTML = '';
   };
 }
 
